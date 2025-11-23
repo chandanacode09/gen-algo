@@ -1,0 +1,12 @@
+<div class="code-viewer" *ngIf="algorithmMetadata">
+  <h3 class="panel-title">Pseudocode</h3>
+  <div class="code-container">
+    <div
+      *ngFor="let line of algorithmMetadata.pseudocode; let i = index"
+      class="code-line"
+      [class.highlighted]="isHighlighted(i)">
+      <span class="line-number">{{ i + 1 }}</span>
+      <span class="line-content">{{ line }}</span>
+    </div>
+  </div>
+</div>

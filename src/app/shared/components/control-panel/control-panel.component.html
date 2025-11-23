@@ -1,0 +1,69 @@
+<div class="control-panel">
+  <div class="control-buttons">
+    <button
+      class="control-btn"
+      (click)="onStepBackward()"
+      [disabled]="isPlaying"
+      title="Step Backward">
+      <span class="icon">⏮</span>
+    </button>
+
+    <button
+      class="control-btn primary"
+      (click)="onPlay()"
+      [disabled]="!canPlay"
+      *ngIf="!isPlaying"
+      title="Play">
+      <span class="icon">▶</span>
+    </button>
+
+    <button
+      class="control-btn primary"
+      (click)="onPause()"
+      [disabled]="!canPause"
+      *ngIf="isPlaying"
+      title="Pause">
+      <span class="icon">⏸</span>
+    </button>
+
+    <button
+      class="control-btn"
+      (click)="onStepForward()"
+      [disabled]="isPlaying"
+      title="Step Forward">
+      <span class="icon">⏭</span>
+    </button>
+
+    <button
+      class="control-btn"
+      (click)="onReset()"
+      [disabled]="!canReset"
+      title="Reset">
+      <span class="icon">⏹</span>
+    </button>
+  </div>
+
+  <div class="speed-control">
+    <label for="speed-slider">Speed:</label>
+    <input
+      id="speed-slider"
+      type="range"
+      min="50"
+      max="2000"
+      step="50"
+      [(ngModel)]="animationSpeed"
+      (change)="onSpeedChange(animationSpeed)"
+      class="speed-slider">
+    <span class="speed-value">{{animationSpeed}}ms</span>
+  </div>
+
+  <div class="sound-toggle">
+    <label>
+      <input
+        type="checkbox"
+        [(ngModel)]="soundEnabled"
+        (change)="onSoundToggle()">
+      <span>Sound Effects</span>
+    </label>
+  </div>
+</div>

@@ -1,0 +1,144 @@
+.control-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  background: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: var(--button-hover);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.primary {
+    background: var(--primary-color);
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+  }
+}
+
+.icon {
+  line-height: 1;
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  label {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .speed-slider {
+    width: 150px;
+    height: 6px;
+    border-radius: 3px;
+    outline: none;
+    background: var(--slider-bg);
+    -webkit-appearance: none;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    &::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .speed-value {
+    min-width: 70px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-family: monospace;
+  }
+}
+
+.sound-toggle {
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-primary);
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--primary-color);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .control-panel {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .speed-control .speed-slider {
+    width: 100px;
+  }
+}

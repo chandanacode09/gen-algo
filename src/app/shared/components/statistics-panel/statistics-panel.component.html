@@ -1,0 +1,63 @@
+<div class="statistics-panel">
+  <h3 class="panel-title">Statistics</h3>
+
+  <div class="stats-grid" *ngIf="algorithmMetadata">
+    <div class="stat-item">
+      <span class="stat-label">Algorithm:</span>
+      <span class="stat-value">{{ algorithmMetadata.name }}</span>
+    </div>
+
+    <div class="stat-item">
+      <span class="stat-label">Time Complexity:</span>
+      <span class="stat-value complexity">
+        <span class="complexity-label">Best:</span> {{ algorithmMetadata.timeComplexity.best }}<br>
+        <span class="complexity-label">Avg:</span> {{ algorithmMetadata.timeComplexity.average }}<br>
+        <span class="complexity-label">Worst:</span> {{ algorithmMetadata.timeComplexity.worst }}
+      </span>
+    </div>
+
+    <div class="stat-item">
+      <span class="stat-label">Space Complexity:</span>
+      <span class="stat-value">{{ algorithmMetadata.spaceComplexity }}</span>
+    </div>
+
+    <div class="stat-item" *ngIf="algorithmMetadata.isStable !== undefined">
+      <span class="stat-label">Stable:</span>
+      <span class="stat-value">{{ algorithmMetadata.isStable ? 'Yes' : 'No' }}</span>
+    </div>
+
+    <div class="stat-item" *ngIf="algorithmMetadata.isInPlace !== undefined">
+      <span class="stat-label">In-Place:</span>
+      <span class="stat-value">{{ algorithmMetadata.isInPlace ? 'Yes' : 'No' }}</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="stats-grid">
+    <div class="stat-item highlight">
+      <span class="stat-label">Comparisons:</span>
+      <span class="stat-value">{{ statistics.comparisons }}</span>
+    </div>
+
+    <div class="stat-item highlight">
+      <span class="stat-label">Swaps/Writes:</span>
+      <span class="stat-value">{{ statistics.swaps }}</span>
+    </div>
+
+    <div class="stat-item">
+      <span class="stat-label">Array Accesses:</span>
+      <span class="stat-value">{{ statistics.arrayAccesses }}</span>
+    </div>
+
+    <div class="stat-item">
+      <span class="stat-label">Progress:</span>
+      <span class="stat-value">{{ statistics.currentStep }} / {{ statistics.totalSteps }}</span>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" [style.width.%]="progress"></div>
+  </div>
+  <div class="progress-text">{{ progress }}%</div>
+</div>

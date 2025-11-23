@@ -1,0 +1,98 @@
+<div class="sorting-visualizer">
+  <!-- Header with algorithm selector -->
+  <div class="header">
+    <h1 class="title">Algorithm Visualizer</h1>
+
+    <div class="controls-top">
+      <div class="control-group">
+        <label for="algorithm-select">Algorithm:</label>
+        <select
+          id="algorithm-select"
+          [(ngModel)]="selectedAlgorithm"
+          (change)="onAlgorithmChange()"
+          class="select-input">
+          <option *ngFor="let algo of algorithms" [value]="algo.id">
+            {{ algo.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="array-size">Array Size:</label>
+        <input
+          id="array-size"
+          type="number"
+          [(ngModel)]="arraySize"
+          (change)="onArraySizeChange()"
+          min="5"
+          max="100"
+          class="number-input">
+      </div>
+
+      <div class="control-group">
+        <label for="data-type">Data Type:</label>
+        <select
+          id="data-type"
+          [(ngModel)]="dataType"
+          (change)="onDataTypeChange()"
+          class="select-input">
+          <option value="random">Random</option>
+          <option value="sorted">Sorted</option>
+          <option value="reversed">Reversed</option>
+          <option value="nearly-sorted">Nearly Sorted</option>
+        </select>
+      </div>
+
+      <button (click)="generateArray()" class="btn-generate">
+        Generate New Array
+      </button>
+    </div>
+  </div>
+
+  <!-- Main content area -->
+  <div class="content-wrapper">
+    <!-- Visualization area -->
+    <div class="visualization-container">
+      <div class="bars-container">
+        <div
+          *ngFor="let bar of bars; let i = index; trackBy: trackByIndex"
+          class="bar"
+          [style.height.%]="getBarHeight(bar.value)"
+          [style.background-color]="getBarColor(bar.state)"
+          [title]="bar.value.toString()">
+          <span class="bar-value" *ngIf="bars.length <= 50">{{ bar.value }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel-container">
+      <app-control-panel></app-control-panel>
+    </div>
+
+    <!-- Side panels -->
+    <div class="side-panels">
+      <!-- Code Viewer -->
+      <div class="panel-wrapper" *ngIf="showCodePanel">
+        <button class="toggle-btn" (click)="toggleCodePanel()">×</button>
+        <app-code-viewer [algorithmMetadata]="algorithmMetadata"></app-code-viewer>
+      </div>
+
+      <!-- Statistics Panel -->
+      <div class="panel-wrapper" *ngIf="showStatsPanel">
+        <button class="toggle-btn" (click)="toggleStatsPanel()">×</button>
+        <app-statistics-panel [algorithmMetadata]="algorithmMetadata"></app-statistics-panel>
+      </div>
+    </div>
+
+    <!-- Toggle buttons for hidden panels -->
+    <div class="toggle-buttons">
+      <button *ngIf="!showCodePanel" (click)="toggleCodePanel()" class="btn-show-panel">
+        Show Code
+      </button>
+      <button *ngIf="!showStatsPanel" (click)="toggleStatsPanel()" class="btn-show-panel">
+        Show Stats
+      </button>
+    </div>
+  </div>
+</div>
