@@ -8,6 +8,7 @@ import {
 } from '../../../core/models';
 
 /**
+import { HEAP_SORT_PYTHON, HEAP_SORT_JAVA } from './code-implementations';
  * Heap Sort Algorithm Implementation
  */
 @Injectable({
