@@ -6,3 +6,6 @@ export * from './animation-step.model';
 
 // Configuration and theming
 export * from './animation-config.model';
+
+// Snapshot system
+export * from './animation-snapshot.model';

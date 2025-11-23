@@ -29,6 +29,21 @@ export interface BaseAnimationStep {
   /** Should this run in parallel with the next step? */
   parallel?: boolean;
 
+  /** Code synchronization - line number being executed */
+  codeLineNumber?: number;
+
+  /** Code snippet to display */
+  codeSnippet?: string;
+
+  /** Programming language for syntax highlighting */
+  codeLanguage?: 'typescript' | 'javascript' | 'python' | 'java' | 'cpp' | 'pseudocode';
+
+  /** Human-friendly explanation (for personality) */
+  explanation?: string;
+
+  /** Hints or tips related to this step */
+  hint?: string;
+
   /** Optional metadata for debugging/tracking */
   metadata?: Record<string, any>;
 }

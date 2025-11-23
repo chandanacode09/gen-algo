@@ -6,8 +6,11 @@
 // Core models and types
 export * from './models';
 
-// Animation engine service
-export * from './services/animation-engine.service';
+// Services
+export * from './services';
 
 // Builder utilities and templates
 export * from './utils';
+
+// Base visualization components
+export * from './components';
