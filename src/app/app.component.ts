@@ -13,16 +13,25 @@ export class AppComponent implements OnInit {
   isDarkMode = false;
 
   ngOnInit(): void {
-    // Check for saved theme preference or default to light mode
-    const savedTheme = localStorage.getItem('theme');
-    this.isDarkMode = savedTheme === 'dark';
-    this.applyTheme();
+    try {
+      // Check for saved theme preference or default to light mode
+      const savedTheme = localStorage?.getItem('theme');
+      this.isDarkMode = savedTheme === 'dark';
+      this.applyTheme();
+    } catch (error) {
+      console.warn('LocalStorage not available:', error);
+      this.applyTheme();
+    }
   }
 
   toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
     this.applyTheme();
-    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+    try {
+      localStorage?.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+    } catch (error) {
+      console.warn('Could not save theme preference:', error);
+    }
   }
 
   private applyTheme(): void {
