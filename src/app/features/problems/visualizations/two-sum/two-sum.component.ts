@@ -80,6 +80,19 @@ export class TwoSumComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Subscribe to animation engine events
     this.subscriptions.push(
+      this.animationEngine.currentStepIndex$.subscribe((index) => {
+        const isBackward = index < this.currentStepIndex;
+        this.currentStepIndex = index;
+
+        // Restore from snapshot when stepping backward
+        if (isBackward) {
+          const snapshot = this.snapshotManager.getSnapshot(index);
+          if (snapshot) {
+            this.stateManager.restoreVisualState(snapshot.visualState);
+          }
+        }
+      }),
+
       this.animationEngine.currentStep$.subscribe((step) => {
         this.currentStep = step;
         if (step) {
@@ -92,10 +105,6 @@ export class TwoSumComponent implements OnInit, OnDestroy {
             this.stateManager.getVisualState()
           );
         }
-      }),
-
-      this.animationEngine.currentStepIndex$.subscribe((index) => {
-        this.currentStepIndex = index;
       }),
 
       this.animationEngine.playbackState$.subscribe((state) => {
