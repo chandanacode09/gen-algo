@@ -10,12 +10,27 @@
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
   margin: 0 0 2rem 0;
   text-align: center;
-  letter-spacing: -0.02em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .title-main {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  .title-sub {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    font-style: italic;
+    opacity: 0.85;
+  }
 }
 
 .controls-top {

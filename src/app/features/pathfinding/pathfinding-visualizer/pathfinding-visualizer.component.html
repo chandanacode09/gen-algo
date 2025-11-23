@@ -1,10 +1,13 @@
 <div class="pathfinding-visualizer">
   <div class="header">
-    <h1 class="title">Pathfinding Visualizer</h1>
+    <h1 class="title">
+      <span class="title-main">Find your way home 🏠</span>
+      <span class="title-sub">Click & drag to build walls, then watch the magic happen</span>
+    </h1>
 
     <div class="controls-top">
       <div class="control-group">
-        <label for="algorithm-select">Algorithm:</label>
+        <label for="algorithm-select">🧠 Choose your pathfinder</label>
         <select
           id="algorithm-select"
           [(ngModel)]="selectedAlgorithm"
@@ -15,20 +18,20 @@
         </select>
       </div>
 
-      <button (click)="visualize()" [disabled]="isRunning" class="btn-visualize">
-        {{ isRunning ? 'Running...' : 'Visualize' }}
+      <button (click)="visualize()" [disabled]="isRunning" class="btn-visualize" title="Let's find that path!">
+        {{ isRunning ? '🏃 Finding path...' : '🚀 Let\'s Go!' }}
       </button>
 
-      <button (click)="clearPath()" [disabled]="isRunning" class="btn-action">
-        Clear Path
+      <button (click)="clearPath()" [disabled]="isRunning" class="btn-action" title="Clear the trail">
+        🧹 Clean Path
       </button>
 
-      <button (click)="clearWalls()" [disabled]="isRunning" class="btn-action">
-        Clear Walls
+      <button (click)="clearWalls()" [disabled]="isRunning" class="btn-action" title="Demolish those walls!">
+        💥 Break Walls
       </button>
 
-      <button (click)="resetGrid()" [disabled]="isRunning" class="btn-action">
-        Reset Grid
+      <button (click)="resetGrid()" [disabled]="isRunning" class="btn-action" title="Start fresh">
+        ♻️ Reset All
       </button>
     </div>
   </div>
@@ -71,12 +74,13 @@
   </div>
 
   <div class="instructions">
-    <p><strong>How to use:</strong></p>
+    <p class="instructions-title">🎮 <strong>How to play:</strong></p>
     <ul>
-      <li>Click or drag to draw walls</li>
-      <li>Select an algorithm and click "Visualize" to find the path</li>
-      <li>Use "Clear Path" to remove the visualization but keep walls</li>
-      <li>Use "Reset Grid" to start fresh</li>
+      <li>🖱️ <strong>Click or drag</strong> anywhere to build walls (become an architect!)</li>
+      <li>🧠 <strong>Pick an algorithm</strong> and hit "Let's Go!" to watch it find the path</li>
+      <li>🧹 <strong>Clean Path</strong> removes the trail but keeps your wall masterpiece</li>
+      <li>♻️ <strong>Reset All</strong> when you want a clean slate</li>
     </ul>
+    <p class="instructions-hint">💡 <em>Pro tip: Try making a maze and see which algorithm wins!</em></p>
   </div>
 </div>

@@ -1,20 +1,23 @@
 <nav class="main-nav">
   <div class="nav-brand">
-    <h1>Algorithm Visualizer</h1>
+    <h1 class="brand-text">
+      <span class="brand-algo">algo</span><span class="brand-viz">viz</span>
+      <span class="brand-tagline">✨ where algorithms dance</span>
+    </h1>
   </div>
 
   <div class="nav-links">
     <a routerLink="/sorting" routerLinkActive="active" class="nav-link">
-      <span class="icon">📊</span>
-      <span class="label">Sorting</span>
+      <span class="icon">🎯</span>
+      <span class="label">Sorting Magic</span>
     </a>
     <a routerLink="/pathfinding" routerLinkActive="active" class="nav-link">
-      <span class="icon">🗺️</span>
-      <span class="label">Pathfinding</span>
+      <span class="icon">🧭</span>
+      <span class="label">Path Quest</span>
     </a>
   </div>
 
-  <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+  <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'" [title]="isDarkMode ? 'Too bright? Click me!' : 'Need some darkness?'">
     {{ isDarkMode ? '☀️' : '🌙' }}
   </button>
 </nav>
