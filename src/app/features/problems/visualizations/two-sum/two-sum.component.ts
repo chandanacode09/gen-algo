@@ -153,6 +153,9 @@ export class TwoSumComponent implements OnInit, OnDestroy {
         'Introduction',
         {
           duration: 1000,
+          codeLineNumber: 1,
+          codeSnippet: `function twoSum(arr, target) {`,
+          codeLanguage: 'javascript',
           explanation: 'We\'ll use the Two Pointers pattern on this sorted array.',
           hint: 'Two pointers work great when the array is sorted!',
         }
@@ -198,7 +201,13 @@ export class TwoSumComponent implements OnInit, OnDestroy {
       highlight(
         [0],
         ElementState.POINTER_LEFT,
-        'Highlight left pointer position'
+        'Highlight left pointer position',
+        {
+          codeLineNumber: 1,
+          codeSnippet: 'let left = 0;',
+          codeLanguage: 'javascript',
+          explanation: 'Starting position highlighted',
+        }
       )
     );
 
@@ -206,7 +215,13 @@ export class TwoSumComponent implements OnInit, OnDestroy {
     const rightHighlightStep = highlight(
       [arr.length - 1],
       ElementState.POINTER_RIGHT,
-      'Highlight right pointer position'
+      'Highlight right pointer position',
+      {
+        codeLineNumber: 2,
+        codeSnippet: 'let right = arr.length - 1;',
+        codeLanguage: 'javascript',
+        explanation: 'Ending position highlighted',
+      }
     );
     rightHighlightStep.parallel = true;  // Execute in parallel with previous step
     steps.push(rightHighlightStep);
@@ -263,7 +278,13 @@ export class TwoSumComponent implements OnInit, OnDestroy {
           highlight(
             [left, right],
             ElementState.RESULT,
-            'Mark solution elements'
+            'Mark solution elements',
+            {
+              codeLineNumber: 7,
+              codeSnippet: `return [left, right]; // [${left}, ${right}]`,
+              codeLanguage: 'javascript',
+              explanation: 'Solution found!',
+            }
           )
         );
 
@@ -276,6 +297,9 @@ export class TwoSumComponent implements OnInit, OnDestroy {
             'Sum is too small',
             {
               messageType: 'info',
+              codeLineNumber: 8,
+              codeSnippet: `if (sum < target) {`,
+              codeLanguage: 'javascript',
               explanation: `Since ${sum} is less than ${this.target}, we need a bigger number. Let's move the left pointer right!`,
               hint: 'Moving left pointer right increases the sum',
             }
@@ -284,7 +308,12 @@ export class TwoSumComponent implements OnInit, OnDestroy {
 
         // Clear old highlighting
         steps.push(
-          highlight([left], ElementState.VISITED, 'Mark as visited')
+          highlight([left], ElementState.VISITED, 'Mark as visited', {
+            codeLineNumber: 10,
+            codeSnippet: 'left++;',
+            codeLanguage: 'javascript',
+            explanation: 'Marking visited element',
+          })
         );
 
         left++;
@@ -304,7 +333,12 @@ export class TwoSumComponent implements OnInit, OnDestroy {
           );
 
           steps.push(
-            highlight([left], ElementState.POINTER_LEFT, 'Highlight new position')
+            highlight([left], ElementState.POINTER_LEFT, 'Highlight new position', {
+              codeLineNumber: 10,
+              codeSnippet: 'left++;',
+              codeLanguage: 'javascript',
+              explanation: 'New left position highlighted',
+            })
           );
         }
       } else {
@@ -315,6 +349,9 @@ export class TwoSumComponent implements OnInit, OnDestroy {
             'Sum is too large',
             {
               messageType: 'info',
+              codeLineNumber: 11,
+              codeSnippet: `} else if (sum > target) {`,
+              codeLanguage: 'javascript',
               explanation: `Since ${sum} is greater than ${this.target}, we need a smaller number. Let's move the right pointer left!`,
               hint: 'Moving right pointer left decreases the sum',
             }
@@ -323,7 +360,12 @@ export class TwoSumComponent implements OnInit, OnDestroy {
 
         // Clear old highlighting
         steps.push(
-          highlight([right], ElementState.VISITED, 'Mark as visited')
+          highlight([right], ElementState.VISITED, 'Mark as visited', {
+            codeLineNumber: 12,
+            codeSnippet: 'right--;',
+            codeLanguage: 'javascript',
+            explanation: 'Marking visited element',
+          })
         );
 
         right--;
@@ -343,7 +385,12 @@ export class TwoSumComponent implements OnInit, OnDestroy {
           );
 
           steps.push(
-            highlight([right], ElementState.POINTER_RIGHT, 'Highlight new position')
+            highlight([right], ElementState.POINTER_RIGHT, 'Highlight new position', {
+              codeLineNumber: 12,
+              codeSnippet: 'right--;',
+              codeLanguage: 'javascript',
+              explanation: 'New right position highlighted',
+            })
           );
         }
       }
@@ -356,6 +403,9 @@ export class TwoSumComponent implements OnInit, OnDestroy {
           'No two numbers add up to target',
           {
             messageType: 'warning',
+            codeLineNumber: 14,
+            codeSnippet: 'return []; // No solution',
+            codeLanguage: 'javascript',
             explanation: 'We checked all possible pairs but couldn\'t find a solution.',
           }
         )
