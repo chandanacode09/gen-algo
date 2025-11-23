@@ -159,7 +159,7 @@ export class TwoSumComponent implements OnInit, OnDestroy {
       )
     );
 
-    // Create left and right pointers
+    // Create left pointer
     steps.push(
       createPointer(
         PointerType.LEFT,
@@ -176,23 +176,24 @@ export class TwoSumComponent implements OnInit, OnDestroy {
       )
     );
 
-    steps.push(
-      createPointer(
-        PointerType.RIGHT,
-        arr.length - 1,
-        'Place right pointer at end',
-        {
-          label: 'R',
-          color: '#ef4444',
-          codeLineNumber: 2,
-          codeSnippet: 'let right = arr.length - 1;',
-          codeLanguage: 'javascript',
-          explanation: 'And right pointer at the end',
-        }
-      )
+    // Create right pointer in parallel
+    const rightPointerStep = createPointer(
+      PointerType.RIGHT,
+      arr.length - 1,
+      'Place right pointer at end',
+      {
+        label: 'R',
+        color: '#ef4444',
+        codeLineNumber: 2,
+        codeSnippet: 'let right = arr.length - 1;',
+        codeLanguage: 'javascript',
+        explanation: 'And right pointer at the end',
+      }
     );
+    rightPointerStep.parallel = true;  // Execute in parallel with previous step
+    steps.push(rightPointerStep);
 
-    // Highlight initial positions
+    // Highlight left pointer position
     steps.push(
       highlight(
         [0],
@@ -201,13 +202,14 @@ export class TwoSumComponent implements OnInit, OnDestroy {
       )
     );
 
-    steps.push(
-      highlight(
-        [arr.length - 1],
-        ElementState.POINTER_RIGHT,
-        'Highlight right pointer position'
-      )
+    // Highlight right pointer position in parallel
+    const rightHighlightStep = highlight(
+      [arr.length - 1],
+      ElementState.POINTER_RIGHT,
+      'Highlight right pointer position'
     );
+    rightHighlightStep.parallel = true;  // Execute in parallel with previous step
+    steps.push(rightHighlightStep);
 
     // Algorithm loop
     let left = 0;
@@ -436,8 +438,10 @@ export class TwoSumComponent implements OnInit, OnDestroy {
     const pointer = this.pointers.get(pointerId);
     if (!pointer || this.array.length === 0) return 0;
 
-    const itemWidth = 100 / this.array.length;
-    return pointer.position * itemWidth + itemWidth / 2;
+    // Calculate position: spread items evenly across 100%
+    // For array of 4: positions are 0%, 33.33%, 66.67%, 100%
+    const spacing = this.array.length > 1 ? 100 / (this.array.length - 1) : 50;
+    return pointer.position * spacing;
   }
 
   /**

@@ -118,8 +118,9 @@ test.describe('Two Sum Visualization Validation', () => {
     const visualizeBtn = page.locator('button:has-text("Visualize")');
     await visualizeBtn.click();
 
-    // Wait for animation to start
-    await page.waitForTimeout(1000);
+    // Wait for animation to start and pointers to be created
+    // Intro message: 1000ms, then pointers created
+    await page.waitForTimeout(1500);
 
     // Check LEFT pointer
     const leftPointer = page.locator('[data-pointer-id="LEFT"]').first();
@@ -284,8 +285,8 @@ test.describe('Two Sum Visualization Validation', () => {
     await page.locator('button:has-text("Visualize")').click();
     await page.waitForTimeout(500);
 
-    // Check array items
-    const arrayItems = page.locator('app-array-item, [class*="array-item"]');
+    // Check array items (only count components, not nested divs)
+    const arrayItems = page.locator('app-array-item');
     const itemCount = await arrayItems.count();
 
     if (itemCount !== arrayLength) {
