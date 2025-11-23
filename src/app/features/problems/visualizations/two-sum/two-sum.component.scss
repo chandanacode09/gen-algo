@@ -149,72 +149,95 @@
 }
 
 // ========================================
-// Code Section
+// Main Content: Side-by-side Layout
+// ========================================
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 400px; // Visualization takes remaining space, code section fixed 400px
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr; // Stack vertically on smaller screens
+    .code-section {
+      order: -1; // Code section goes to top on mobile
+    }
+  }
+}
+
+// ========================================
+// Code Section (Right Side)
 // ========================================
 
 .code-section {
-  padding: 1.5rem;
+  padding: 1.25rem;
   background: var(--surface-color);
   border-radius: 0.75rem;
   border: 2px solid var(--primary-color);
-  margin-bottom: 2rem;
-  height: 240px; // Fixed height to prevent resizing
+  height: 520px; // Taller to match visualization area
   display: flex;
   flex-direction: column;
   overflow-y: auto; // Allow scrolling for long content
+  position: sticky;
+  top: 2rem; // Stick to top when scrolling
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .code-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.75rem;
+  margin-bottom: 0.625rem;
+  padding-bottom: 0.625rem;
   border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
 
   .code-label {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 700;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   .code-language {
-    padding: 0.25rem 0.5rem;
+    padding: 0.2rem 0.4rem;
     background: var(--highlight-bg);
     color: var(--text-secondary);
     border-radius: 0.25rem;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 600;
   }
 }
 
 .code-snippet {
-  padding: 1rem;
+  padding: 0.75rem;
   background: var(--code-hover);
   border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  min-height: 50px; // Prevent collapsing
-  flex-shrink: 0; // Don't shrink in flex container
+  margin-bottom: 0.75rem;
+  flex: 1;
+  overflow-y: auto;
 
   code {
-    font-family: 'Monaco', 'Courier New', monospace;
-    font-size: 0.9375rem;
+    font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+    font-size: 0.8125rem; // Smaller font (13px)
     color: var(--text-primary);
-    line-height: 1.6;
-    display: block; // Consistent block display
-    white-space: pre-wrap; // Preserve formatting
+    line-height: 1.5;
+    display: block;
+    white-space: pre-wrap;
   }
 }
 
 .code-explanation {
-  padding: 0.875rem 1rem;
+  padding: 0.625rem 0.75rem;
   background: rgba(59, 130, 246, 0.1);
   border-left: 3px solid var(--primary-color);
   border-radius: 0.375rem;
   color: var(--text-primary);
-  font-size: 0.9375rem;
+  font-size: 0.8125rem; // Smaller font
+  flex-shrink: 0;
   line-height: 1.5;
   margin-bottom: 0.75rem;
 }

@@ -163,8 +163,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
         {
           duration: 1000,
           codeLineNumber: 1,
-          codeSnippet: `function twoSum(arr, target) {`,
-          codeLanguage: 'javascript',
+          codeSnippet: `def two_sum(arr, target):`,
+          codeLanguage: 'python',
           explanation: 'We\'ll use the Two Pointers pattern on this sorted array.',
           hint: 'Two pointers work great when the array is sorted!',
         }
@@ -181,8 +181,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
           label: 'L',
           color: '#3b82f6',
           codeLineNumber: 1,
-          codeSnippet: 'let left = 0;',
-          codeLanguage: 'javascript',
+          codeSnippet: 'left = 0',
+          codeLanguage: 'python',
           explanation: 'Start with left pointer at the beginning',
         }
       )
@@ -197,8 +197,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
         label: 'R',
         color: '#ef4444',
         codeLineNumber: 2,
-        codeSnippet: 'let right = arr.length - 1;',
-        codeLanguage: 'javascript',
+        codeSnippet: 'right = len(arr) - 1',
+        codeLanguage: 'python',
         explanation: 'And right pointer at the end',
       }
     );
@@ -213,8 +213,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
         'Highlight left pointer position',
         {
           codeLineNumber: 1,
-          codeSnippet: 'let left = 0;',
-          codeLanguage: 'javascript',
+          codeSnippet: 'left = 0',
+          codeLanguage: 'python',
           explanation: 'Starting position highlighted',
         }
       )
@@ -227,8 +227,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
       'Highlight right pointer position',
       {
         codeLineNumber: 2,
-        codeSnippet: 'let right = arr.length - 1;',
-        codeLanguage: 'javascript',
+        codeSnippet: 'right = len(arr) - 1',
+        codeLanguage: 'python',
         explanation: 'Ending position highlighted',
       }
     );
@@ -255,8 +255,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
             showValue: true,
             result: sum,
             codeLineNumber: 5,
-            codeSnippet: `const sum = arr[left] + arr[right]; // ${sum}`,
-            codeLanguage: 'javascript',
+            codeSnippet: `sum = arr[left] + arr[right]  # ${sum}`,
+            codeLanguage: 'python',
             explanation: `Let's check if ${arr[left]} + ${arr[right]} equals our target of ${this.target}`,
           }
         )
@@ -275,8 +275,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
               cycles: 2,
               duration: 800,
               codeLineNumber: 7,
-              codeSnippet: `return [left, right]; // [${left}, ${right}]`,
-              codeLanguage: 'javascript',
+              codeSnippet: `return [left, right]  # [${left}, ${right}]`,
+              codeLanguage: 'python',
               explanation: `Bingo! We found two numbers that add up to ${this.target}!`,
               hint: 'The answer is the indices, not the values',
             }
@@ -290,8 +290,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
             'Mark solution elements',
             {
               codeLineNumber: 7,
-              codeSnippet: `return [left, right]; // [${left}, ${right}]`,
-              codeLanguage: 'javascript',
+              codeSnippet: `return [left, right]  # [${left}, ${right}]`,
+              codeLanguage: 'python',
               explanation: 'Solution found!',
             }
           )
@@ -307,8 +307,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
             {
               messageType: 'info',
               codeLineNumber: 8,
-              codeSnippet: `if (sum < target) {`,
-              codeLanguage: 'javascript',
+              codeSnippet: `if sum < target:`,
+              codeLanguage: 'python',
               explanation: `Since ${sum} is less than ${this.target}, we need a bigger number. Let's move the left pointer right!`,
               hint: 'Moving left pointer right increases the sum',
             }
@@ -319,8 +319,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
         steps.push(
           highlight([left], ElementState.VISITED, 'Mark as visited', {
             codeLineNumber: 10,
-            codeSnippet: 'left++;',
-            codeLanguage: 'javascript',
+            codeSnippet: 'left += 1',
+            codeLanguage: 'python',
             explanation: 'Marking visited element',
           })
         );
@@ -335,8 +335,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
               `Move left pointer to index ${left}`,
               {
                 codeLineNumber: 10,
-                codeSnippet: 'left++;',
-                codeLanguage: 'javascript',
+                codeSnippet: 'left += 1',
+                codeLanguage: 'python',
               }
             )
           );
@@ -344,8 +344,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
           steps.push(
             highlight([left], ElementState.POINTER_LEFT, 'Highlight new position', {
               codeLineNumber: 10,
-              codeSnippet: 'left++;',
-              codeLanguage: 'javascript',
+              codeSnippet: 'left += 1',
+              codeLanguage: 'python',
               explanation: 'New left position highlighted',
             })
           );
@@ -359,8 +359,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
             {
               messageType: 'info',
               codeLineNumber: 11,
-              codeSnippet: `} else if (sum > target) {`,
-              codeLanguage: 'javascript',
+              codeSnippet: `elif sum > target:`,
+              codeLanguage: 'python',
               explanation: `Since ${sum} is greater than ${this.target}, we need a smaller number. Let's move the right pointer left!`,
               hint: 'Moving right pointer left decreases the sum',
             }
@@ -371,8 +371,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
         steps.push(
           highlight([right], ElementState.VISITED, 'Mark as visited', {
             codeLineNumber: 12,
-            codeSnippet: 'right--;',
-            codeLanguage: 'javascript',
+            codeSnippet: 'right -= 1',
+            codeLanguage: 'python',
             explanation: 'Marking visited element',
           })
         );
@@ -387,8 +387,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
               `Move right pointer to index ${right}`,
               {
                 codeLineNumber: 12,
-                codeSnippet: 'right--;',
-                codeLanguage: 'javascript',
+                codeSnippet: 'right -= 1',
+                codeLanguage: 'python',
               }
             )
           );
@@ -396,8 +396,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
           steps.push(
             highlight([right], ElementState.POINTER_RIGHT, 'Highlight new position', {
               codeLineNumber: 12,
-              codeSnippet: 'right--;',
-              codeLanguage: 'javascript',
+              codeSnippet: 'right -= 1',
+              codeLanguage: 'python',
               explanation: 'New right position highlighted',
             })
           );
@@ -413,8 +413,8 @@ export class TwoSumComponent implements OnInit, OnDestroy {
           {
             messageType: 'warning',
             codeLineNumber: 14,
-            codeSnippet: 'return []; // No solution',
-            codeLanguage: 'javascript',
+            codeSnippet: 'return []  # No solution',
+            codeLanguage: 'python',
             explanation: 'We checked all possible pairs but couldn\'t find a solution.',
           }
         )

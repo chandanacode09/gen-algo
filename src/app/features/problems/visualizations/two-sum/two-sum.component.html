@@ -43,93 +43,96 @@
     </div>
   </div>
 
-  <!-- Code Display -->
-  <div class="code-section" *ngIf="currentStep && currentStep.codeSnippet">
-    <div class="code-header">
-      <span class="code-label">Current Step:</span>
-      <span class="code-language">{{ currentStep.codeLanguage || 'javascript' }}</span>
-    </div>
-    <div class="code-snippet">
-      <code>{{ currentStep.codeSnippet }}</code>
-    </div>
-    <div class="code-explanation" *ngIf="currentStep.explanation">
-      💡 {{ currentStep.explanation }}
-    </div>
-    <div class="code-hint" *ngIf="currentStep.hint">
-      ✨ <strong>Tip:</strong> {{ currentStep.hint }}
-    </div>
-  </div>
+  <!-- Main Content: Side-by-side layout -->
+  <div class="main-content" *ngIf="totalSteps > 0">
+    <!-- Left: Visualization Area -->
+    <div class="visualization-area">
+      <!-- Step Info -->
+      <div class="step-info">
+        <div class="step-description">
+          {{ currentStep?.description || 'Ready to visualize' }}
+        </div>
+      </div>
 
-  <!-- Visualization Area -->
-  <div class="visualization-area" *ngIf="totalSteps > 0">
-    <!-- Step Info -->
-    <div class="step-info">
-      <div class="step-description">
-        {{ currentStep?.description || 'Ready to visualize' }}
+      <!-- Array Visualization -->
+      <div class="array-visualization">
+        <div class="array-container">
+          <!-- Pointers -->
+          <app-pointer
+            *ngIf="hasPointer('LEFT')"
+            pointerId="LEFT"
+            type="LEFT"
+            label="L"
+            [leftPercent]="getPointerLeftPercent('LEFT')">
+          </app-pointer>
+
+          <app-pointer
+            *ngIf="hasPointer('RIGHT')"
+            pointerId="RIGHT"
+            type="RIGHT"
+            label="R"
+            [leftPercent]="getPointerLeftPercent('RIGHT')">
+          </app-pointer>
+
+          <!-- Array Items -->
+          <app-array-item
+            *ngFor="let value of array; let i = index"
+            [index]="i"
+            [value]="value"
+            [state]="getElementState(i)"
+            [showIndex]="true">
+          </app-array-item>
+        </div>
+      </div>
+
+      <!-- Result Display -->
+      <div class="result-display" *ngIf="result">
+        <div class="result-icon">✅</div>
+        <div class="result-content">
+          <h3>Solution Found!</h3>
+          <p>
+            Indices: <strong>[{{ result[0] }}, {{ result[1] }}]</strong>
+          </p>
+          <p class="result-values">
+            Values: {{ array[result[0]] }} + {{ array[result[1]] }} = {{ target }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Playback Controls -->
+      <app-playback-controls
+        [currentStep]="currentStepIndex"
+        [totalSteps]="totalSteps"
+        [isPlaying]="isPlaying"
+        [playbackState]="playbackState"
+        [speed]="1.0"
+        [showStepCounter]="true"
+        [showSpeedControl]="true"
+        (play)="play()"
+        (pause)="pause()"
+        (stepForward)="stepForward()"
+        (stepBackward)="stepBackward()"
+        (reset)="reset()"
+        (speedChange)="changeSpeed($event)">
+      </app-playback-controls>
+    </div>
+
+    <!-- Right: Code Display -->
+    <div class="code-section" *ngIf="currentStep && currentStep.codeSnippet">
+      <div class="code-header">
+        <span class="code-label">🐍 Python Code</span>
+        <span class="code-language">{{ currentStep.codeLanguage || 'python' }}</span>
+      </div>
+      <div class="code-snippet">
+        <code>{{ currentStep.codeSnippet }}</code>
+      </div>
+      <div class="code-explanation" *ngIf="currentStep.explanation">
+        💡 {{ currentStep.explanation }}
+      </div>
+      <div class="code-hint" *ngIf="currentStep.hint">
+        ✨ <strong>Tip:</strong> {{ currentStep.hint }}
       </div>
     </div>
-
-    <!-- Array Visualization -->
-    <div class="array-visualization">
-      <div class="array-container">
-        <!-- Pointers -->
-        <app-pointer
-          *ngIf="hasPointer('LEFT')"
-          pointerId="LEFT"
-          type="LEFT"
-          label="L"
-          [leftPercent]="getPointerLeftPercent('LEFT')">
-        </app-pointer>
-
-        <app-pointer
-          *ngIf="hasPointer('RIGHT')"
-          pointerId="RIGHT"
-          type="RIGHT"
-          label="R"
-          [leftPercent]="getPointerLeftPercent('RIGHT')">
-        </app-pointer>
-
-        <!-- Array Items -->
-        <app-array-item
-          *ngFor="let value of array; let i = index"
-          [index]="i"
-          [value]="value"
-          [state]="getElementState(i)"
-          [showIndex]="true">
-        </app-array-item>
-      </div>
-    </div>
-
-    <!-- Result Display -->
-    <div class="result-display" *ngIf="result">
-      <div class="result-icon">✅</div>
-      <div class="result-content">
-        <h3>Solution Found!</h3>
-        <p>
-          Indices: <strong>[{{ result[0] }}, {{ result[1] }}]</strong>
-        </p>
-        <p class="result-values">
-          Values: {{ array[result[0]] }} + {{ array[result[1]] }} = {{ target }}
-        </p>
-      </div>
-    </div>
-
-    <!-- Playback Controls -->
-    <app-playback-controls
-      [currentStep]="currentStepIndex"
-      [totalSteps]="totalSteps"
-      [isPlaying]="isPlaying"
-      [playbackState]="playbackState"
-      [speed]="1.0"
-      [showStepCounter]="true"
-      [showSpeedControl]="true"
-      (play)="play()"
-      (pause)="pause()"
-      (stepForward)="stepForward()"
-      (stepBackward)="stepBackward()"
-      (reset)="reset()"
-      (speedChange)="changeSpeed($event)">
-    </app-playback-controls>
   </div>
 
   <!-- Empty State -->
