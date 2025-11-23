@@ -433,15 +433,38 @@ export class TwoSumComponent implements OnInit, OnDestroy {
 
   /**
    * Get pointer position as percentage for display
+   * Calculates position to align with flexbox-centered array items
    */
   getPointerLeftPercent(pointerId: string): number {
     const pointer = this.pointers.get(pointerId);
     if (!pointer || this.array.length === 0) return 0;
 
-    // Calculate position: spread items evenly across 100%
-    // For array of 4: positions are 0%, 33.33%, 66.67%, 100%
-    const spacing = this.array.length > 1 ? 100 / (this.array.length - 1) : 50;
-    return pointer.position * spacing;
+    const itemCount = this.array.length;
+    const itemWidth = 60; // px - from CSS
+    const gap = 16; // px - 1rem gap between items
+
+    // Container width (from CSS .array-container)
+    const containerWidth = 1070; // px
+
+    // Calculate spacing between item centers (itemWidth + gap)
+    const itemSpacing = itemWidth + gap; // 76px
+
+    // Total spread width (first to last item center)
+    const totalSpread = (itemCount - 1) * itemSpacing; // e.g., 3 * 76 = 228px
+
+    // Center point of the container (where items are centered)
+    const containerPadding = 16; // px - 1rem horizontal padding
+    const containerCenter = containerWidth / 2; // 535px
+
+    // First item's center position (working backwards from center)
+    // Flexbox centers in content box, so we need to account for padding
+    const firstItemCenter = containerCenter - (totalSpread / 2) + containerPadding; // 535 - 114 + 16 = 437px
+
+    // This item's center position
+    const itemCenter = firstItemCenter + (pointer.position * itemSpacing);
+
+    // Convert to percentage
+    return (itemCenter / containerWidth) * 100;
   }
 
   /**
