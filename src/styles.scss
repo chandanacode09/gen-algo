@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Import Animation Framework Styles */
+@import './app/core/animations/styles/animations.scss';
+
 /* CSS Variables for Light Theme */
 :root,
 .light-theme {
@@ -25,6 +28,21 @@
   --progress-bg: #e2e8f0;
   --code-highlight: #fef3c7;
   --code-hover: #f7fafc;
+
+  /* Animation State Colors (Light Theme) */
+  --state-default: #6b7280;
+  --state-current: #3b82f6;
+  --state-comparing: #f59e0b;
+  --state-candidate: #a855f7;
+  --state-valid: #10b981;
+  --state-invalid: #ef4444;
+  --state-visited: #d1d5db;
+  --state-result: #22c55e;
+  --state-pointer-left: #3b82f6;
+  --state-pointer-right: #ef4444;
+  --state-in-window: #93c5fd;
+  --state-pivot: #f97316;
+  --state-sorted: #4ade80;
 }
 
 /* CSS Variables for Dark Theme */
@@ -51,6 +69,21 @@
   --progress-bg: #4a5568;
   --code-highlight: #854d0e;
   --code-hover: #374151;
+
+  /* Animation State Colors (Dark Theme) */
+  --state-default: #9ca3af;
+  --state-current: #60a5fa;
+  --state-comparing: #fbbf24;
+  --state-candidate: #c084fc;
+  --state-valid: #34d399;
+  --state-invalid: #f87171;
+  --state-visited: #4b5563;
+  --state-result: #4ade80;
+  --state-pointer-left: #60a5fa;
+  --state-pointer-right: #f87171;
+  --state-in-window: #60a5fa;
+  --state-pivot: #fb923c;
+  --state-sorted: #86efac;
 }
 
 /* Global Styles */

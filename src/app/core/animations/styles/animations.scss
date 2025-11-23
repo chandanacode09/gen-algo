@@ -1,0 +1,424 @@
+/**
+ * Animation Framework CSS
+ * Reusable animation classes and keyframes
+ */
+
+// ========================================
+// Keyframe Definitions
+// ========================================
+
+@keyframes highlight-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 20px currentColor;
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes swap-left {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateX(var(--swap-distance));
+  }
+}
+
+@keyframes swap-right {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateX(calc(var(--swap-distance) * -1));
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// ========================================
+// State Classes (Element States)
+// ========================================
+
+.anim-state {
+  transition: all 0.3s ease-in-out;
+}
+
+.anim-state-default {
+  background-color: var(--state-default, #6b7280);
+  color: white;
+}
+
+.anim-state-current {
+  background-color: var(--state-current, #3b82f6);
+  color: white;
+}
+
+.anim-state-comparing {
+  background-color: var(--state-comparing, #f59e0b);
+  color: white;
+}
+
+.anim-state-candidate {
+  background-color: var(--state-candidate, #a855f7);
+  color: white;
+}
+
+.anim-state-valid {
+  background-color: var(--state-valid, #10b981);
+  color: white;
+}
+
+.anim-state-invalid {
+  background-color: var(--state-invalid, #ef4444);
+  color: white;
+}
+
+.anim-state-visited {
+  background-color: var(--state-visited, #d1d5db);
+  color: #6b7280;
+}
+
+.anim-state-result {
+  background-color: var(--state-result, #22c55e);
+  color: white;
+  font-weight: bold;
+}
+
+.anim-state-pointer-left {
+  background-color: var(--state-pointer-left, #3b82f6);
+  color: white;
+  border: 2px solid #1d4ed8;
+}
+
+.anim-state-pointer-right {
+  background-color: var(--state-pointer-right, #ef4444);
+  color: white;
+  border: 2px solid #b91c1c;
+}
+
+.anim-state-in-window {
+  background-color: var(--state-in-window, #93c5fd);
+  color: #1e40af;
+  border: 2px solid #3b82f6;
+}
+
+.anim-state-pivot {
+  background-color: var(--state-pivot, #f97316);
+  color: white;
+}
+
+.anim-state-sorted {
+  background-color: var(--state-sorted, #4ade80);
+  color: white;
+}
+
+// ========================================
+// Animation Classes
+// ========================================
+
+.anim-pulse {
+  animation: highlight-pulse 0.6s ease-in-out;
+}
+
+.anim-pulse-infinite {
+  animation: highlight-pulse 1s ease-in-out infinite;
+}
+
+.anim-flash {
+  animation: flash 0.6s ease-in-out;
+}
+
+.anim-glow {
+  animation: glow 1s ease-in-out infinite;
+}
+
+.anim-bounce-in {
+  animation: bounce-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.anim-bounce-out {
+  animation: bounce-out 0.3s ease-in;
+}
+
+.anim-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+.anim-slide-out {
+  animation: slide-out 0.3s ease-in;
+}
+
+.anim-fade-in {
+  animation: fade-in 0.3s ease-in;
+}
+
+.anim-fade-out {
+  animation: fade-out 0.3s ease-out;
+}
+
+.anim-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.anim-pop {
+  animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+// ========================================
+// Pointer Styles
+// ========================================
+
+.anim-pointer {
+  position: absolute;
+  top: -30px;
+  transform: translateX(-50%);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: 10;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid currentColor;
+  }
+}
+
+.anim-pointer-left {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.anim-pointer-right {
+  background-color: #ef4444;
+  color: white;
+}
+
+.anim-pointer-fast {
+  background-color: #8b5cf6;
+  color: white;
+}
+
+.anim-pointer-slow {
+  background-color: #06b6d4;
+  color: white;
+}
+
+.anim-pointer-pivot {
+  background-color: #f97316;
+  color: white;
+}
+
+.anim-pointer-current {
+  background-color: #10b981;
+  color: white;
+}
+
+// ========================================
+// Window Styles
+// ========================================
+
+.anim-window {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(59, 130, 246, 0.1);
+  border: 2px solid #3b82f6;
+  border-radius: 0.5rem;
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.anim-window::before {
+  content: 'Window';
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #3b82f6;
+  background: white;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+}
+
+// ========================================
+// Transition Utilities
+// ========================================
+
+.anim-transition-fast {
+  transition: all 0.2s ease-in-out;
+}
+
+.anim-transition-normal {
+  transition: all 0.3s ease-in-out;
+}
+
+.anim-transition-slow {
+  transition: all 0.5s ease-in-out;
+}
+
+.anim-transition-bounce {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.anim-transition-elastic {
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+// ========================================
+// Dark Mode Support
+// ========================================
+
+@media (prefers-color-scheme: dark) {
+  .anim-state-default {
+    background-color: var(--state-default, #9ca3af);
+  }
+
+  .anim-state-visited {
+    background-color: var(--state-visited, #4b5563);
+    color: #d1d5db;
+  }
+
+  .anim-state-in-window {
+    background-color: var(--state-in-window, #60a5fa);
+    color: #bfdbfe;
+  }
+
+  .anim-window::before {
+    background: #1f2937;
+  }
+}
