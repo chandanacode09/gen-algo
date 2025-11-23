@@ -1,0 +1,166 @@
+<div class="patterns-visualizer">
+  <div class="header">
+    <h1 class="title">
+      <span class="title-main">Master the patterns 🧩</span>
+      <span class="title-sub">Learn the secret sauce behind coding interviews</span>
+    </h1>
+
+    <div class="controls-top">
+      <div class="control-group">
+        <label for="pattern-select">🎯 Choose your pattern</label>
+        <select
+          id="pattern-select"
+          [(ngModel)]="selectedPattern"
+          (change)="onPatternChange()"
+          class="select-input">
+          <option *ngFor="let pattern of patterns" [value]="pattern.category">
+            {{ pattern.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="problem-select">💡 Pick a problem</label>
+        <select
+          id="problem-select"
+          [(ngModel)]="selectedProblem"
+          class="select-input">
+          <option *ngFor="let problem of problemsForPattern" [value]="problem.id">
+            {{ problem.name }}
+          </option>
+        </select>
+      </div>
+
+      <button (click)="visualize()" class="btn-visualize" title="Let's see it in action!">
+        🚀 Visualize It!
+      </button>
+    </div>
+  </div>
+
+  <!-- Pattern Info Card -->
+  <div class="pattern-info">
+    <h3>📚 About this pattern</h3>
+    <p class="description">{{ PATTERN_METADATA[selectedPattern].description }}</p>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">⚡ Time:</span>
+        <span class="info-value">{{ PATTERN_METADATA[selectedPattern].complexity.time }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">💾 Space:</span>
+        <span class="info-value">{{ PATTERN_METADATA[selectedPattern].complexity.space }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">🎯 Use Case:</span>
+        <span class="info-value">{{ PATTERN_METADATA[selectedPattern].useCase }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Input Section -->
+  <div class="input-section">
+    <h3>✏️ Enter your data (or use the default)</h3>
+    <div class="input-controls">
+      <div class="input-group">
+        <label for="array-input">📊 Array (comma-separated)</label>
+        <input
+          id="array-input"
+          type="text"
+          [(ngModel)]="inputArray"
+          (change)="parseInput()"
+          class="text-input"
+          placeholder="e.g., 1, 3, 5, 7, 9, 11">
+      </div>
+
+      <div class="input-group" *ngIf="currentProblemNeedsTarget">
+        <label for="target-input">🎯 Target Sum</label>
+        <input
+          id="target-input"
+          type="number"
+          [(ngModel)]="targetValue"
+          class="number-input">
+      </div>
+
+      <div class="input-group" *ngIf="currentProblemNeedsWindow">
+        <label for="window-input">📏 Window Size</label>
+        <input
+          id="window-input"
+          type="number"
+          [(ngModel)]="windowSize"
+          min="1"
+          [max]="array.length"
+          class="number-input">
+      </div>
+    </div>
+  </div>
+
+  <!-- Visualization Area -->
+  <div class="visualization-container" *ngIf="steps.length > 0">
+    <div class="step-info">
+      <div class="step-counter">
+        Step {{ currentStepIndex + 1 }} of {{ steps.length }}
+      </div>
+      <div class="step-description">
+        {{ currentStep?.description }}
+      </div>
+    </div>
+
+    <!-- Array Visualization -->
+    <div class="array-container">
+      <div
+        *ngFor="let value of currentStep?.array; let i = index; trackBy: trackByIndex"
+        [class]="getArrayItemClass(i)"
+        class="array-item-wrapper">
+        <div class="pointer-label" *ngIf="getPointerLabel(i)">
+          {{ getPointerLabel(i) }}
+        </div>
+        <div class="array-value">
+          {{ value }}
+        </div>
+        <div class="array-index">{{ i }}</div>
+      </div>
+    </div>
+
+    <!-- Status Display -->
+    <div class="status-display" *ngIf="currentStep">
+      <div class="status-item" *ngIf="currentStep.currentSum !== undefined">
+        <span class="status-label">Current Sum:</span>
+        <span class="status-value">{{ currentStep.currentSum }}</span>
+      </div>
+      <div class="status-item" *ngIf="currentStep.targetSum !== undefined">
+        <span class="status-label">Target:</span>
+        <span class="status-value">{{ currentStep.targetSum }}</span>
+      </div>
+      <div class="status-item" *ngIf="currentStep.result !== undefined && currentStep.result !== null">
+        <span class="status-label">Result:</span>
+        <span class="status-value result">{{ currentStep.result }}</span>
+      </div>
+    </div>
+
+    <!-- Playback Controls -->
+    <div class="playback-controls">
+      <button (click)="reset()" class="control-btn" title="Start over">
+        ⏮️
+      </button>
+      <button (click)="stepBackward()" [disabled]="currentStepIndex === 0" class="control-btn" title="Previous step">
+        ⏪
+      </button>
+      <button *ngIf="!isPlaying" (click)="play()" [disabled]="currentStepIndex === steps.length - 1" class="control-btn primary" title="Play animation">
+        ▶️
+      </button>
+      <button *ngIf="isPlaying" (click)="pause()" class="control-btn primary" title="Pause animation">
+        ⏸️
+      </button>
+      <button (click)="stepForward()" [disabled]="currentStepIndex === steps.length - 1" class="control-btn" title="Next step">
+        ⏩
+      </button>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="steps.length === 0">
+    <div class="empty-icon">🎮</div>
+    <h3>Ready to see some magic?</h3>
+    <p>Enter your array above and hit "Visualize It!" to watch the pattern in action!</p>
+  </div>
+</div>
