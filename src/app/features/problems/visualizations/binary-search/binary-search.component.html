@@ -1,0 +1,199 @@
+<div class="visualization-container">
+  <!-- Header -->
+  <div class="viz-header">
+    <div class="problem-meta">
+      <span class="problem-number">#704</span>
+      <h1 class="problem-title">Binary Search</h1>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="pattern-badge">🔍 Binary Search</span>
+    </div>
+    <p class="problem-description">
+      Given a sorted array <code>arr</code> and a target value <code>target</code>,
+      return the index of the target if found, otherwise return -1.
+    </p>
+  </div>
+
+  <!-- Input Controls -->
+  <div class="input-section">
+    <h3>Custom Input</h3>
+    <div class="input-controls">
+      <div class="input-group">
+        <label for="array-input">Sorted Array (comma-separated)</label>
+        <input
+          id="array-input"
+          type="text"
+          [(ngModel)]="customInput"
+          (change)="parseInput()"
+          placeholder="e.g., 1, 3, 5, 7, 9, 11, 13"
+          class="text-input" />
+      </div>
+
+      <div class="input-group">
+        <label for="target-input">Target Value</label>
+        <input
+          id="target-input"
+          type="number"
+          [(ngModel)]="target"
+          class="number-input" />
+      </div>
+
+      <button (click)="visualize()" class="btn-visualize">
+        🚀 Visualize
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content: Side-by-side layout -->
+  <div class="main-content" *ngIf="totalSteps > 0">
+    <!-- Left: Visualization Area -->
+    <div class="visualization-area">
+      <!-- Step Info -->
+      <div class="step-info">
+        <div class="step-description">
+          {{ currentStep?.description || 'Ready to visualize' }}
+        </div>
+      </div>
+
+      <!-- Array Visualization -->
+      <div class="array-visualization">
+        <div class="array-container">
+          <!-- Pointers -->
+          <app-pointer
+            *ngIf="hasPointer('LEFT')"
+            pointerId="LEFT"
+            type="LEFT"
+            label="L"
+            [leftPercent]="getPointerLeftPercent('LEFT')">
+          </app-pointer>
+
+          <app-pointer
+            *ngIf="hasPointer('MID')"
+            pointerId="MID"
+            type="CURRENT"
+            label="M"
+            [leftPercent]="getPointerLeftPercent('MID')">
+          </app-pointer>
+
+          <app-pointer
+            *ngIf="hasPointer('RIGHT')"
+            pointerId="RIGHT"
+            type="RIGHT"
+            label="R"
+            [leftPercent]="getPointerLeftPercent('RIGHT')">
+          </app-pointer>
+
+          <!-- Array Items -->
+          <app-array-item
+            *ngFor="let value of array; let i = index"
+            [index]="i"
+            [value]="value"
+            [state]="getElementState(i)"
+            [showIndex]="true">
+          </app-array-item>
+        </div>
+      </div>
+
+      <!-- Result Display -->
+      <div class="result-display" *ngIf="result !== null">
+        <div class="result-icon">✅</div>
+        <div class="result-content">
+          <h3>Target Found!</h3>
+          <p>
+            Index: <strong>{{ result }}</strong>
+          </p>
+          <p class="result-values">
+            Value at index {{ result }}: {{ array[result] }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Playback Controls -->
+      <app-playback-controls
+        [currentStep]="currentStepIndex"
+        [totalSteps]="totalSteps"
+        [isPlaying]="isPlaying"
+        [playbackState]="playbackState"
+        [speed]="1.0"
+        [showStepCounter]="true"
+        [showSpeedControl]="true"
+        (play)="play()"
+        (pause)="pause()"
+        (stepForward)="stepForward()"
+        (stepBackward)="stepBackward()"
+        (reset)="reset()"
+        (speedChange)="changeSpeed($event)">
+      </app-playback-controls>
+    </div>
+
+    <!-- Right: Code Display -->
+    <div class="code-section" *ngIf="currentStep && currentStep.codeSnippet">
+      <div class="code-header">
+        <span class="code-label">🐍 Python Code</span>
+        <span class="code-language">{{ currentStep.codeLanguage || 'python' }}</span>
+      </div>
+      <div class="code-snippet">
+        <code>{{ currentStep.codeSnippet }}</code>
+      </div>
+      <div class="code-explanation" *ngIf="currentStep.explanation">
+        💡 {{ currentStep.explanation }}
+      </div>
+      <div class="code-hint" *ngIf="currentStep.hint">
+        ✨ <strong>Tip:</strong> {{ currentStep.hint }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="totalSteps === 0">
+    <div class="empty-icon">🔍</div>
+    <h3>Ready for Binary Search?</h3>
+    <p>Enter your sorted array and target above, then click "Visualize" to see the algorithm in action!</p>
+    <div class="example-hint">
+      <strong>Try this:</strong> Array: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19], Target: 13
+    </div>
+  </div>
+
+  <!-- Algorithm Explanation -->
+  <div class="explanation-section">
+    <h2>How It Works</h2>
+    <div class="explanation-content">
+      <div class="explanation-card">
+        <div class="card-icon">🔍</div>
+        <h3>Divide and Conquer</h3>
+        <p>
+          Binary Search repeatedly divides the search space in half by comparing
+          the target with the middle element. If they match, we're done! Otherwise,
+          we eliminate half the array and continue searching.
+        </p>
+      </div>
+
+      <div class="explanation-card">
+        <div class="card-icon">⚡</div>
+        <h3>Time Complexity: O(log n)</h3>
+        <p>
+          Each iteration eliminates half of the remaining elements. With each step,
+          we halve the search space, making it extremely efficient even for large arrays.
+          For 1 million elements, we need at most 20 comparisons!
+        </p>
+      </div>
+
+      <div class="explanation-card">
+        <div class="card-icon">💾</div>
+        <h3>Space Complexity: O(1)</h3>
+        <p>
+          We only use three pointers (left, mid, right) regardless of array size,
+          making this solution very memory efficient.
+        </p>
+      </div>
+
+      <div class="explanation-card">
+        <div class="card-icon">💡</div>
+        <h3>Key Requirement</h3>
+        <p>
+          <strong>The array must be sorted!</strong> Binary Search relies on the fact
+          that elements are in order. If the array isn't sorted, the algorithm won't work correctly.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
