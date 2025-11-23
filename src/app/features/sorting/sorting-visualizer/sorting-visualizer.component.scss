@@ -1,31 +1,38 @@
 .sorting-visualizer {
   min-height: 100vh;
-  padding: 1rem;
+  padding: 2rem 1.5rem;
   background: var(--bg-color);
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .title {
   font-size: 2rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 2rem 0;
   text-align: center;
+  letter-spacing: -0.02em;
 }
 
 .controls-top {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.25rem;
   justify-content: center;
   align-items: flex-end;
-  padding: 1rem;
+  padding: 1.5rem 2rem;
   background: var(--surface-color);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  }
 }
 
 .control-group {
@@ -42,17 +49,24 @@
 
 .select-input,
 .number-input {
-  padding: 0.5rem 0.75rem;
+  padding: 0.625rem 0.875rem;
   border: 2px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--input-bg);
   color: var(--text-primary);
   font-size: 0.875rem;
-  transition: border-color 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
 
   &:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
   }
 }
 
@@ -61,38 +75,46 @@
 }
 
 .btn-generate {
-  padding: 0.5rem 1.5rem;
+  padding: 0.625rem 1.75rem;
   background: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
   }
 }
 
 .content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .visualization-container {
   background: var(--surface-color);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   min-height: 400px;
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  }
 }
 
 .bars-container {
@@ -109,14 +131,16 @@
   min-width: 2px;
   max-width: 60px;
   position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-  border-radius: 4px 4px 0 0;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 6px 6px 0 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    opacity: 0.8;
+    opacity: 0.85;
+    transform: scaleY(1.02);
   }
 }
 
@@ -136,7 +160,7 @@
 .side-panels {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .panel-wrapper {
@@ -173,19 +197,26 @@
 }
 
 .btn-show-panel {
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 1.75rem;
   background: var(--secondary-color);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--secondary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
   }
 }
 
