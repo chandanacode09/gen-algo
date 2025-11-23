@@ -17,7 +17,7 @@ import { ElementState } from '../../models';
       [style.height.px]="heightScale ? value * heightScale : null"
       [attr.data-index]="index"
       [attr.data-value]="value">
-      <div class="array-value">{{ displayValue }}</div>
+      <div class="array-value">{{ displayValue_computed }}</div>
       <div class="array-index" *ngIf="showIndex">{{ index }}</div>
     </div>
   `,
