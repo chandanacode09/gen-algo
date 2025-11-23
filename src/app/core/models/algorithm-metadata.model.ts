@@ -19,6 +19,16 @@ export enum AlgorithmCategory {
 }
 
 /**
+ * Code implementations in different languages
+ */
+export interface CodeImplementations {
+  pseudocode: string[];
+  python?: string[];
+  java?: string[];
+  javascript?: string[];
+}
+
+/**
  * Metadata describing an algorithm
  */
 export interface AlgorithmMetadata {
@@ -48,6 +58,9 @@ export interface AlgorithmMetadata {
 
   /** Pseudocode lines */
   pseudocode: string[];
+
+  /** Code implementations in multiple languages */
+  codeImplementations?: CodeImplementations;
 
   /** Algorithm difficulty (1-5) */
   difficulty?: number;

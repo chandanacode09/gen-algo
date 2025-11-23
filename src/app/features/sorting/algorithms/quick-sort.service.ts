@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { QUICK_SORT_PYTHON, QUICK_SORT_JAVA } from './code-implementations';
 import { BaseSortingAlgorithm } from '../../../core/services/algorithm-executor.service';
 import {
   AlgorithmStep,
@@ -47,7 +48,28 @@ export class QuickSortService extends BaseSortingAlgorithm {
         '      swap arr[i] and arr[j]',
         '  swap arr[i + 1] and arr[high]',
         '  return i + 1'
-      ]
+      ],
+      codeImplementations: {
+        pseudocode: [
+          'function quickSort(arr, low, high):',
+          '  if low < high:',
+          '    pivot_index = partition(arr, low, high)',
+          '    quickSort(arr, low, pivot_index - 1)',
+          '    quickSort(arr, pivot_index + 1, high)',
+          '',
+          'function partition(arr, low, high):',
+          '  pivot = arr[high]',
+          '  i = low - 1',
+          '  for j = low to high - 1:',
+          '    if arr[j] <= pivot:',
+          '      i++',
+          '      swap arr[i] and arr[j]',
+          '  swap arr[i + 1] and arr[high]',
+          '  return i + 1'
+        ],
+        python: QUICK_SORT_PYTHON,
+        java: QUICK_SORT_JAVA
+      }
     };
   }
 

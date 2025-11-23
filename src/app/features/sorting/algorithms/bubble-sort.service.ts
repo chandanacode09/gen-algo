@@ -6,6 +6,7 @@ import {
   AlgorithmCategory,
   OperationType
 } from '../../../core/models';
+import { BUBBLE_SORT_PYTHON, BUBBLE_SORT_JAVA } from './code-implementations';
 
 /**
  * Bubble Sort Algorithm Implementation
@@ -35,7 +36,18 @@ export class BubbleSortService extends BaseSortingAlgorithm {
         '    if arr[j] > arr[j+1]:',
         '      swap arr[j] and arr[j+1]',
         '  mark arr[n-i-1] as sorted'
-      ]
+      ],
+      codeImplementations: {
+        pseudocode: [
+          'for i = 0 to n-1:',
+          '  for j = 0 to n-i-2:',
+          '    if arr[j] > arr[j+1]:',
+          '      swap arr[j] and arr[j+1]',
+          '  mark arr[n-i-1] as sorted'
+        ],
+        python: BUBBLE_SORT_PYTHON,
+        java: BUBBLE_SORT_JAVA
+      }
     };
   }
 

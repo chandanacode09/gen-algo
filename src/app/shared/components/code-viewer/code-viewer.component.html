@@ -1,12 +1,31 @@
 <div class="code-viewer" *ngIf="algorithmMetadata">
-  <h3 class="panel-title">Pseudocode</h3>
+  <div class="header-section">
+    <h3 class="panel-title">Code</h3>
+    <div class="language-tabs">
+      <button
+        *ngFor="let lang of availableLanguages"
+        class="language-tab"
+        [class.active]="selectedLanguage === lang.id"
+        [class.disabled]="!isLanguageAvailable(lang.id)"
+        [disabled]="!isLanguageAvailable(lang.id)"
+        (click)="selectLanguage(lang.id)"
+        [title]="isLanguageAvailable(lang.id) ? lang.name : lang.name + ' (not available)'">
+        <span class="icon">{{ lang.icon }}</span>
+        <span class="label">{{ lang.name }}</span>
+      </button>
+    </div>
+  </div>
+
   <div class="code-container">
     <div
-      *ngFor="let line of algorithmMetadata.pseudocode; let i = index"
+      *ngFor="let line of getCode(); let i = index"
       class="code-line"
       [class.highlighted]="isHighlighted(i)">
       <span class="line-number">{{ i + 1 }}</span>
       <span class="line-content">{{ line }}</span>
+    </div>
+    <div *ngIf="getCode().length === 0" class="empty-state">
+      <p>{{ selectedLanguage }} implementation not available for this algorithm yet.</p>
     </div>
   </div>
 </div>
