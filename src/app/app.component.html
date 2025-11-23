@@ -1,10 +1,24 @@
-<!-- Theme toggle button -->
-<button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
-  {{ isDarkMode ? '☀️' : '🌙' }}
-</button>
+<nav class="main-nav">
+  <div class="nav-brand">
+    <h1>Algorithm Visualizer</h1>
+  </div>
 
-<!-- Main content -->
-<app-sorting-visualizer></app-sorting-visualizer>
+  <div class="nav-links">
+    <a routerLink="/sorting" routerLinkActive="active" class="nav-link">
+      <span class="icon">📊</span>
+      <span class="label">Sorting</span>
+    </a>
+    <a routerLink="/pathfinding" routerLinkActive="active" class="nav-link">
+      <span class="icon">🗺️</span>
+      <span class="label">Pathfinding</span>
+    </a>
+  </div>
 
-<!-- Router outlet for future routes -->
-<router-outlet />
+  <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+    {{ isDarkMode ? '☀️' : '🌙' }}
+  </button>
+</nav>
+
+<main class="main-content">
+  <router-outlet />
+</main>

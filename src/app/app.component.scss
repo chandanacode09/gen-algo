@@ -1,27 +1,123 @@
-.theme-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1000;
-  width: 48px;
-  height: 48px;
-  border: none;
-  border-radius: 50%;
-  background: var(--surface-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.main-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
-  &:hover {
-    transform: scale(1.1) rotate(15deg);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  .nav-brand {
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      letter-spacing: -0.5px;
+    }
   }
 
-  &:active {
-    transform: scale(0.95);
+  .nav-links {
+    display: flex;
+    gap: 0.5rem;
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: all 0.2s ease;
+      position: relative;
+
+      .icon {
+        font-size: 1.25rem;
+      }
+
+      .label {
+        font-size: 0.938rem;
+      }
+
+      &:hover {
+        background: var(--background-color);
+        color: var(--text-color);
+        transform: translateY(-1px);
+      }
+
+      &.active {
+        background: var(--primary-color);
+        color: white;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+
+        &:hover {
+          background: var(--primary-color);
+          color: white;
+        }
+      }
+    }
+  }
+
+  .theme-toggle {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: var(--background-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+.main-content {
+  min-height: calc(100vh - 80px);
+}
+
+@media (max-width: 768px) {
+  .main-nav {
+    padding: 0.75rem 1rem;
+
+    .nav-brand h1 {
+      font-size: 1.125rem;
+    }
+
+    .nav-links {
+      .nav-link {
+        padding: 0.5rem 0.75rem;
+
+        .label {
+          display: none;
+        }
+
+        .icon {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+    }
   }
 }

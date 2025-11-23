@@ -1,0 +1,82 @@
+<div class="pathfinding-visualizer">
+  <div class="header">
+    <h1 class="title">Pathfinding Visualizer</h1>
+
+    <div class="controls-top">
+      <div class="control-group">
+        <label for="algorithm-select">Algorithm:</label>
+        <select
+          id="algorithm-select"
+          [(ngModel)]="selectedAlgorithm"
+          class="select-input">
+          <option *ngFor="let algo of algorithms" [value]="algo.id">
+            {{ algo.name }}
+          </option>
+        </select>
+      </div>
+
+      <button (click)="visualize()" [disabled]="isRunning" class="btn-visualize">
+        {{ isRunning ? 'Running...' : 'Visualize' }}
+      </button>
+
+      <button (click)="clearPath()" [disabled]="isRunning" class="btn-action">
+        Clear Path
+      </button>
+
+      <button (click)="clearWalls()" [disabled]="isRunning" class="btn-action">
+        Clear Walls
+      </button>
+
+      <button (click)="resetGrid()" [disabled]="isRunning" class="btn-action">
+        Reset Grid
+      </button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-cell start"></div>
+      <span>Start</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-cell end"></div>
+      <span>End</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-cell wall"></div>
+      <span>Wall</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-cell visited"></div>
+      <span>Visited</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-cell path"></div>
+      <span>Path</span>
+    </div>
+  </div>
+
+  <div class="grid-container" (mouseup)="onMouseUp()" (mouseleave)="onMouseUp()">
+    <div class="grid">
+      <div *ngFor="let row of grid" class="grid-row">
+        <div
+          *ngFor="let cell of row"
+          [class]="getCellClass(cell)"
+          (click)="onCellClick(cell)"
+          (mousedown)="onCellMouseDown(cell)"
+          (mouseenter)="onCellMouseEnter(cell)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <p><strong>How to use:</strong></p>
+    <ul>
+      <li>Click or drag to draw walls</li>
+      <li>Select an algorithm and click "Visualize" to find the path</li>
+      <li>Use "Clear Path" to remove the visualization but keep walls</li>
+      <li>Use "Reset Grid" to start fresh</li>
+    </ul>
+  </div>
+</div>
