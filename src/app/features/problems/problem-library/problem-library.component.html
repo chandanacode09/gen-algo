@@ -1,0 +1,163 @@
+<div class="problem-library">
+  <!-- Header -->
+  <div class="library-header">
+    <div class="header-content">
+      <h1 class="title">
+        <span class="title-main">LeetCode Problem Library</span>
+        <span class="title-sub">{{ filteredProblems.length }} problems • {{ visualizedCount }} visualized</span>
+      </h1>
+      <p class="description">
+        Master coding interviews with 14 proven patterns. Filter by difficulty, pattern, or search for specific problems.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-value">{{ allProblems.length }}</span>
+        <span class="stat-label">Total Problems</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ difficultyStats['Easy'] }}</span>
+        <span class="stat-label difficulty-easy">Easy</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ difficultyStats['Med.'] }}</span>
+        <span class="stat-label difficulty-medium">Medium</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ difficultyStats['Hard'] }}</span>
+        <span class="stat-label difficulty-hard">Hard</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-group">
+      <label for="pattern-filter">Pattern</label>
+      <select
+        id="pattern-filter"
+        [(ngModel)]="selectedPattern"
+        (change)="applyFilters()"
+        class="filter-select">
+        <option value="ALL">All Patterns ({{ allProblems.length }})</option>
+        <option *ngFor="let pattern of patterns" [value]="pattern">
+          {{ PATTERN_INFO[pattern].icon }} {{ PATTERN_INFO[pattern].name }} ({{ patternStats[pattern] }})
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="difficulty-filter">Difficulty</label>
+      <select
+        id="difficulty-filter"
+        [(ngModel)]="selectedDifficulty"
+        (change)="applyFilters()"
+        class="filter-select">
+        <option value="ALL">All Difficulties</option>
+        <option [value]="Difficulty.EASY">Easy ({{ difficultyStats['Easy'] }})</option>
+        <option [value]="Difficulty.MEDIUM">Medium ({{ difficultyStats['Med.'] }})</option>
+        <option [value]="Difficulty.HARD">Hard ({{ difficultyStats['Hard'] }})</option>
+      </select>
+    </div>
+
+    <div class="filter-group search-group">
+      <label for="search-filter">Search</label>
+      <input
+        id="search-filter"
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="applyFilters()"
+        placeholder="Search by name or number..."
+        class="filter-input" />
+    </div>
+
+    <div class="filter-group checkbox-group">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [(ngModel)]="showOnlyVisualized"
+          (change)="applyFilters()" />
+        <span>Show only visualized ({{ visualizedCount }})</span>
+      </label>
+    </div>
+
+    <button class="reset-btn" (click)="resetFilters()" *ngIf="selectedPattern !== 'ALL' || selectedDifficulty !== 'ALL' || searchQuery || showOnlyVisualized">
+      Reset Filters
+    </button>
+  </div>
+
+  <!-- Problems Grid -->
+  <div class="problems-grid" *ngIf="filteredProblems.length > 0">
+    <div
+      *ngFor="let problem of filteredProblems"
+      class="problem-card"
+      [class.has-visualization]="problem.hasVisualization"
+      [class.clickable]="problem.hasVisualization"
+      (click)="problem.hasVisualization ? viewProblem(problem) : null">
+
+      <!-- Header -->
+      <div class="problem-header">
+        <div class="problem-number">#{{ problem.id }}</div>
+        <div class="problem-badges">
+          <span class="difficulty-badge" [ngClass]="getDifficultyClass(problem.difficulty)">
+            {{ problem.difficulty }}
+          </span>
+          <span class="success-rate">{{ problem.successRate }}%</span>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h3 class="problem-title">{{ problem.title }}</h3>
+
+      <!-- Pattern -->
+      <div class="problem-pattern">
+        <span
+          class="pattern-badge"
+          [style.background-color]="getPatternColor(problem.pattern)"
+          [style.color]="'white'">
+          {{ getPatternIcon(problem.pattern) }} {{ PATTERN_INFO[problem.pattern].name }}
+        </span>
+      </div>
+
+      <!-- Description -->
+      <p class="problem-description" *ngIf="problem.description">
+        {{ problem.description }}
+      </p>
+
+      <!-- Concepts -->
+      <div class="problem-concepts" *ngIf="problem.concepts && problem.concepts.length > 0">
+        <span class="concept-tag" *ngFor="let concept of problem.concepts">
+          {{ concept }}
+        </span>
+      </div>
+
+      <!-- Footer -->
+      <div class="problem-footer">
+        <div class="visualization-status">
+          <span *ngIf="problem.hasVisualization" class="status-badge visualized">
+            ✓ Visualized
+          </span>
+          <span *ngIf="!problem.hasVisualization" class="status-badge not-visualized">
+            Coming Soon
+          </span>
+        </div>
+        <button
+          *ngIf="problem.hasVisualization"
+          class="view-btn"
+          (click)="viewProblem(problem); $event.stopPropagation()">
+          View →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="filteredProblems.length === 0">
+    <div class="empty-icon">🔍</div>
+    <h3>No problems found</h3>
+    <p>Try adjusting your filters or search query</p>
+    <button class="reset-btn" (click)="resetFilters()">Reset Filters</button>
+  </div>
+</div>

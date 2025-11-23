@@ -240,6 +240,27 @@ export interface MessageStep extends BaseAnimationStep {
 }
 
 /**
+ * Remove sliding window
+ */
+export interface WindowRemoveStep extends BaseAnimationStep {
+  type: AnimationType.WINDOW_REMOVE;
+}
+
+/**
+ * Mark elements with a specific state
+ */
+export interface MarkStep extends BaseAnimationStep {
+  type:
+    | AnimationType.MARK_VISITED
+    | AnimationType.MARK_CURRENT
+    | AnimationType.MARK_RESULT
+    | AnimationType.MARK_INVALID
+    | AnimationType.MARK_CANDIDATE;
+  /** Indices to mark */
+  indices: number[];
+}
+
+/**
  * Union type of all possible animation steps
  */
 export type AnimationStep =
@@ -257,9 +278,11 @@ export type AnimationStep =
   | WindowExpandStep
   | WindowShrinkStep
   | WindowSlideStep
+  | WindowRemoveStep
   | UpdateValueStep
   | PauseStep
-  | MessageStep;
+  | MessageStep
+  | MarkStep;
 
 /**
  * Animation sequence - a list of steps to execute

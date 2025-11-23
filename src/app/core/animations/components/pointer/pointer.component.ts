@@ -41,9 +41,8 @@ export class PointerComponent {
    * Get CSS class based on pointer type
    */
   getPointerClass(): string {
-    const typeClass = typeof this.type === 'string'
-      ? this.type.toLowerCase()
-      : this.type.toString().toLowerCase();
+    const typeValue = this.type as string;
+    const typeClass = typeValue.toLowerCase();
 
     return `anim-pointer anim-pointer-${typeClass}`;
   }

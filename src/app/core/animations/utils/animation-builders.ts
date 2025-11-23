@@ -30,6 +30,11 @@ import {
 } from '../models';
 
 /**
+ * Code language type for syntax highlighting
+ */
+type CodeLanguage = 'typescript' | 'javascript' | 'python' | 'java' | 'cpp' | 'pseudocode';
+
+/**
  * Create a highlight step
  */
 export function highlight(
@@ -40,6 +45,11 @@ export function highlight(
     duration?: number;
     delay?: number;
     parallel?: boolean;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): HighlightStep {
   return {
@@ -61,6 +71,11 @@ export function unhighlight(
     duration?: number;
     delay?: number;
     parallel?: boolean;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): UnhighlightStep {
   return {
@@ -83,6 +98,11 @@ export function compare(
     result?: any;
     duration?: number;
     delay?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): CompareStep {
   return {
@@ -104,6 +124,11 @@ export function swap(
   options?: {
     duration?: number;
     delay?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): SwapStep {
   return {
@@ -125,6 +150,11 @@ export function move(
   options?: {
     duration?: number;
     delay?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): MoveStep {
   return {
@@ -146,6 +176,11 @@ export function pulse(
     cycles?: number;
     duration?: number;
     delay?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): PulseStep {
   return {
@@ -166,6 +201,11 @@ export function flash(
     color?: string;
     duration?: number;
     delay?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): FlashStep {
   return {
@@ -188,6 +228,11 @@ export function movePointer(
     label?: string;
     duration?: number;
     delay?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): PointerMoveStep {
   return {
@@ -211,6 +256,11 @@ export function createPointer(
     label?: string;
     color?: string;
     duration?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): PointerCreateStep {
   return {
@@ -231,6 +281,11 @@ export function removePointer(
   description: string = `Remove ${pointer} pointer`,
   options?: {
     duration?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): PointerRemoveStep {
   return {
@@ -238,6 +293,7 @@ export function removePointer(
     pointer,
     description,
     duration: options?.duration || 300,
+    ...options,
   };
 }
 
@@ -250,6 +306,11 @@ export function createWindow(
   description: string,
   options?: {
     duration?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): WindowCreateStep {
   return {
@@ -258,6 +319,7 @@ export function createWindow(
     end,
     description,
     duration: options?.duration || 400,
+    ...options,
   };
 }
 
@@ -270,6 +332,11 @@ export function expandWindow(
     newStart?: number;
     newEnd?: number;
     duration?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): WindowExpandStep {
   return {
@@ -289,6 +356,11 @@ export function shrinkWindow(
     newStart?: number;
     newEnd?: number;
     duration?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): WindowShrinkStep {
   return {
@@ -308,6 +380,11 @@ export function slideWindow(
   description: string,
   options?: {
     duration?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): WindowSlideStep {
   return {
@@ -316,6 +393,7 @@ export function slideWindow(
     newEnd,
     description,
     duration: options?.duration || 500,
+    ...options,
   };
 }
 
@@ -329,6 +407,11 @@ export function updateValue(
   options?: {
     showCalculation?: boolean;
     duration?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): UpdateValueStep {
   return {
@@ -345,14 +428,22 @@ export function updateValue(
  */
 export function pause(
   duration: number,
-  message?: string,
-  description: string = 'Pause'
+  msg?: string,
+  description: string = 'Pause',
+  options?: {
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
+  }
 ): PauseStep {
   return {
     type: AnimationType.PAUSE,
     description,
     duration,
-    message,
+    message: msg,
+    ...options,
   };
 }
 
@@ -365,6 +456,11 @@ export function message(
   options?: {
     messageType?: 'info' | 'success' | 'warning' | 'error';
     duration?: number;
+    codeLineNumber?: number;
+    codeSnippet?: string;
+    codeLanguage?: CodeLanguage;
+    explanation?: string;
+    hint?: string;
   }
 ): MessageStep {
   return {

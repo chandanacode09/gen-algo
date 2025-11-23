@@ -361,8 +361,7 @@ export class AnimationValidatorService {
     createdPointers: Set<string>,
     errors: ValidationError[]
   ): void {
-    const pointerId =
-      typeof step.pointer === 'string' ? step.pointer : step.pointer.toString();
+    const pointerId = step.pointer as string;
 
     if (createdPointers.has(pointerId)) {
       errors.push({
@@ -394,8 +393,7 @@ export class AnimationValidatorService {
     createdPointers: Set<string>,
     errors: ValidationError[]
   ): void {
-    const pointerId =
-      typeof step.pointer === 'string' ? step.pointer : step.pointer.toString();
+    const pointerId = step.pointer as string;
 
     if (!createdPointers.has(pointerId)) {
       errors.push({
@@ -424,8 +422,7 @@ export class AnimationValidatorService {
     createdPointers: Set<string>,
     errors: ValidationError[]
   ): void {
-    const pointerId =
-      typeof step.pointer === 'string' ? step.pointer : step.pointer.toString();
+    const pointerId = step.pointer as string;
 
     if (!createdPointers.has(pointerId)) {
       errors.push({

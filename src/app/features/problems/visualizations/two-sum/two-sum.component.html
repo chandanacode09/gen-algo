@@ -1,0 +1,188 @@
+<div class="visualization-container">
+  <!-- Header -->
+  <div class="viz-header">
+    <div class="problem-meta">
+      <span class="problem-number">#1</span>
+      <h1 class="problem-title">Two Sum</h1>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="pattern-badge">👈👉 Two Pointers</span>
+    </div>
+    <p class="problem-description">
+      Given an array of integers <code>nums</code> and an integer <code>target</code>,
+      return indices of the two numbers such that they add up to target.
+    </p>
+  </div>
+
+  <!-- Input Controls -->
+  <div class="input-section">
+    <h3>Custom Input</h3>
+    <div class="input-controls">
+      <div class="input-group">
+        <label for="array-input">Array (comma-separated)</label>
+        <input
+          id="array-input"
+          type="text"
+          [(ngModel)]="customInput"
+          (change)="parseInput()"
+          placeholder="e.g., 2, 7, 11, 15"
+          class="text-input" />
+      </div>
+
+      <div class="input-group">
+        <label for="target-input">Target Sum</label>
+        <input
+          id="target-input"
+          type="number"
+          [(ngModel)]="target"
+          class="number-input" />
+      </div>
+
+      <button (click)="visualize()" class="btn-visualize">
+        🚀 Visualize
+      </button>
+    </div>
+  </div>
+
+  <!-- Code Display -->
+  <div class="code-section" *ngIf="currentStep && currentStep.codeSnippet">
+    <div class="code-header">
+      <span class="code-label">Current Step:</span>
+      <span class="code-language">{{ currentStep.codeLanguage || 'javascript' }}</span>
+    </div>
+    <div class="code-snippet">
+      <code>{{ currentStep.codeSnippet }}</code>
+    </div>
+    <div class="code-explanation" *ngIf="currentStep.explanation">
+      💡 {{ currentStep.explanation }}
+    </div>
+    <div class="code-hint" *ngIf="currentStep.hint">
+      ✨ <strong>Tip:</strong> {{ currentStep.hint }}
+    </div>
+  </div>
+
+  <!-- Visualization Area -->
+  <div class="visualization-area" *ngIf="totalSteps > 0">
+    <!-- Step Info -->
+    <div class="step-info">
+      <div class="step-description">
+        {{ currentStep?.description || 'Ready to visualize' }}
+      </div>
+    </div>
+
+    <!-- Array Visualization -->
+    <div class="array-visualization">
+      <div class="array-container">
+        <!-- Pointers -->
+        <app-pointer
+          *ngIf="hasPointer('LEFT')"
+          pointerId="LEFT"
+          type="LEFT"
+          label="L"
+          [leftPercent]="getPointerLeftPercent('LEFT')">
+        </app-pointer>
+
+        <app-pointer
+          *ngIf="hasPointer('RIGHT')"
+          pointerId="RIGHT"
+          type="RIGHT"
+          label="R"
+          [leftPercent]="getPointerLeftPercent('RIGHT')">
+        </app-pointer>
+
+        <!-- Array Items -->
+        <app-array-item
+          *ngFor="let value of array; let i = index"
+          [index]="i"
+          [value]="value"
+          [state]="getElementState(i)"
+          [showIndex]="true">
+        </app-array-item>
+      </div>
+    </div>
+
+    <!-- Result Display -->
+    <div class="result-display" *ngIf="result">
+      <div class="result-icon">✅</div>
+      <div class="result-content">
+        <h3>Solution Found!</h3>
+        <p>
+          Indices: <strong>[{{ result[0] }}, {{ result[1] }}]</strong>
+        </p>
+        <p class="result-values">
+          Values: {{ array[result[0]] }} + {{ array[result[1]] }} = {{ target }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Playback Controls -->
+    <app-playback-controls
+      [currentStep]="currentStepIndex"
+      [totalSteps]="totalSteps"
+      [isPlaying]="isPlaying"
+      [playbackState]="playbackState"
+      [speed]="1.0"
+      [showStepCounter]="true"
+      [showSpeedControl]="true"
+      (play)="play()"
+      (pause)="pause()"
+      (stepForward)="stepForward()"
+      (stepBackward)="stepBackward()"
+      (reset)="reset()"
+      (speedChange)="changeSpeed($event)">
+    </app-playback-controls>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="totalSteps === 0">
+    <div class="empty-icon">🎯</div>
+    <h3>Ready to solve Two Sum?</h3>
+    <p>Enter your array and target above, then click "Visualize" to see the algorithm in action!</p>
+    <div class="example-hint">
+      <strong>Try this:</strong> Array: [2, 7, 11, 15], Target: 9
+    </div>
+  </div>
+
+  <!-- Algorithm Explanation -->
+  <div class="explanation-section">
+    <h2>How It Works</h2>
+    <div class="explanation-content">
+      <div class="explanation-card">
+        <div class="card-icon">🎯</div>
+        <h3>The Two Pointers Approach</h3>
+        <p>
+          We use two pointers starting from opposite ends of the sorted array.
+          By comparing the sum at these positions with our target, we can
+          intelligently move the pointers to find the solution.
+        </p>
+      </div>
+
+      <div class="explanation-card">
+        <div class="card-icon">⚡</div>
+        <h3>Time Complexity: O(n)</h3>
+        <p>
+          We only traverse the array once with our two pointers moving toward
+          each other. Each element is visited at most once.
+        </p>
+      </div>
+
+      <div class="explanation-card">
+        <div class="card-icon">💾</div>
+        <h3>Space Complexity: O(1)</h3>
+        <p>
+          We only use two pointers (constant extra space), making this solution
+          very memory efficient.
+        </p>
+      </div>
+
+      <div class="explanation-card">
+        <div class="card-icon">💡</div>
+        <h3>Key Insight</h3>
+        <p>
+          If the sum is too small, we need a larger number (move left pointer right).
+          If the sum is too large, we need a smaller number (move right pointer left).
+          This only works because the array is sorted!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

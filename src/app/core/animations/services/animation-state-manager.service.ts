@@ -15,6 +15,8 @@ import {
   WindowSlideStep,
   SwapStep,
   UpdateValueStep,
+  WindowRemoveStep,
+  MarkStep,
 } from '../models';
 
 /**
@@ -252,8 +254,7 @@ export class AnimationStateManager {
   }
 
   private createPointer(step: PointerCreateStep): void {
-    const pointerId =
-      typeof step.pointer === 'string' ? step.pointer : step.pointer.toString();
+    const pointerId = step.pointer as string;
 
     this.pointers.set(pointerId, {
       id: pointerId,
@@ -265,8 +266,7 @@ export class AnimationStateManager {
   }
 
   private movePointer(step: PointerMoveStep): void {
-    const pointerId =
-      typeof step.pointer === 'string' ? step.pointer : step.pointer.toString();
+    const pointerId = step.pointer as string;
 
     const existing = this.pointers.get(pointerId);
     if (existing) {
@@ -279,8 +279,7 @@ export class AnimationStateManager {
   }
 
   private removePointer(step: PointerRemoveStep): void {
-    const pointerId =
-      typeof step.pointer === 'string' ? step.pointer : step.pointer.toString();
+    const pointerId = step.pointer as string;
 
     this.pointers.delete(pointerId);
   }
@@ -382,8 +381,8 @@ export class AnimationStateManager {
     this.window = null;
   }
 
-  private applyMark(step: AnimationStep): void {
-    const stateMap: Record<AnimationType, ElementState> = {
+  private applyMark(step: MarkStep): void {
+    const stateMap: Partial<Record<AnimationType, ElementState>> = {
       [AnimationType.MARK_VISITED]: ElementState.VISITED,
       [AnimationType.MARK_CURRENT]: ElementState.CURRENT,
       [AnimationType.MARK_RESULT]: ElementState.RESULT,
@@ -391,9 +390,9 @@ export class AnimationStateManager {
       [AnimationType.MARK_CANDIDATE]: ElementState.CANDIDATE,
     };
 
-    const state = stateMap[step.type as AnimationType];
-    if (state && 'indices' in step) {
-      (step as any).indices.forEach((index: number) => {
+    const state = stateMap[step.type];
+    if (state) {
+      step.indices.forEach((index: number) => {
         this.elementStates.set(index, state);
         this.highlightedIndices.add(index);
       });
